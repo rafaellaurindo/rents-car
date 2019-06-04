@@ -64,7 +64,7 @@ public class CustomerBean {
 	public Connection getDatabase() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String dbUrl = "jdbc:mysql://localhost:3306/salecar", dbUsername = "root", dbPassword = "";
+			String dbUrl = "jdbc:mysql://localhost:3306/rentscar", dbUsername = "root", dbPassword = "";
 			this.dbConnection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 		} catch (Exception e) {
 			System.out.println(e);
