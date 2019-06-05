@@ -155,6 +155,7 @@ public class VehicleBean {
 				vehiclesList.add(vehicle);
 			}
 
+			stmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -174,6 +175,7 @@ public class VehicleBean {
 			pstmt.setString(5, newVehicleObj.getYear());
 			pstmt.setFloat(6, newVehicleObj.getPrice());
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -186,6 +188,7 @@ public class VehicleBean {
 		try {
 			pstmt = this.getDatabase().prepareStatement("DELETE FROM vehicles WHERE id = " + id);
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -193,16 +196,15 @@ public class VehicleBean {
 		return "/vehicles/index.xhtml?faces-redirect=true";
 	}
 
-	public String edit(int id) {
+	public VehicleBean selectAVehicle(int id) {
 		System.out.println("Execute edit()");
-		VehicleBean vehicle = null;
+		VehicleBean vehicle = new VehicleBean();
 
 		try {
 			Statement stmt = this.getDatabase().createStatement();
 			ResultSet resultObj = stmt.executeQuery("SELECT * FROM vehicles WHERE id=" + (id));
 			resultObj.next();
 
-			vehicle = new VehicleBean();
 			vehicle.setId(resultObj.getInt("id"));
 			vehicle.setBrand(resultObj.getString("brand"));
 			vehicle.setColor(resultObj.getString("color"));
@@ -210,6 +212,20 @@ public class VehicleBean {
 			vehicle.setPlate(resultObj.getString("plate"));
 			vehicle.setPrice(resultObj.getFloat("price"));
 			vehicle.setYear(resultObj.getString("year"));
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return vehicle;
+	}
+
+	public String edit(int id) {
+		System.out.println("Execute edit()");
+		VehicleBean vehicle = null;
+
+		try {
+			vehicle = this.selectAVehicle(id);
 			context.getSessionMap().put("vehicleToUpdate", vehicle);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -231,6 +247,7 @@ public class VehicleBean {
 			pstmt.setFloat(6, vehicleToUpdate.getPrice());
 			pstmt.setInt(7, vehicleToUpdate.getId());
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}

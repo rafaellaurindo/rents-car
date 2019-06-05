@@ -124,7 +124,7 @@ public class SaleBean {
 		return "/index.xhtml?faces-redirect=true";
 	}
 
-	public String edit(int id) {
+	public SaleBean selectASale(int id) {
 		System.out.println("Execute edit()");
 		SaleBean sale = null;
 
@@ -138,6 +138,19 @@ public class SaleBean {
 			sale.setId(resultObj.getInt("id"));
 			sale.setCustomerId(resultObj.getInt("customer_id"));
 			sale.setVehicleId(resultObj.getInt("vehicle_id"));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return sale;
+	}
+
+	public String edit(int id) {
+		System.out.println("Execute edit()");
+		SaleBean sale = null;
+
+		try {
+			sale = this.selectASale(id);
 			context.getSessionMap().put("saleToUpdate", sale);
 		} catch (Exception e) {
 			System.out.println(e);

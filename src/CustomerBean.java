@@ -137,7 +137,7 @@ public class CustomerBean {
 				custObj.setPhone(resultObj.getString("phone"));
 				customersList.add(custObj);
 			}
-
+			stmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -156,6 +156,7 @@ public class CustomerBean {
 			pstmt.setString(4, newCustomerObj.getName());
 			pstmt.setString(5, newCustomerObj.getPhone());
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -168,6 +169,7 @@ public class CustomerBean {
 		try {
 			pstmt = this.getDatabase().prepareStatement("DELETE FROM customers WHERE id = " + id);
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -175,22 +177,34 @@ public class CustomerBean {
 		return "/customers/index.xhtml?faces-redirect=true";
 	}
 
-	public String edit(int id) {
-		System.out.println("Execute edit()");
-		CustomerBean customer = null;
+	public CustomerBean selectACustomer(int id) {
+		CustomerBean customer = new CustomerBean();
 
 		try {
 			Statement stmt = this.getDatabase().createStatement();
 			ResultSet resultObj = stmt.executeQuery("SELECT * FROM customers WHERE id=" + (id));
 			resultObj.next();
 
-			customer = new CustomerBean();
 			customer.setId(resultObj.getInt("id"));
 			customer.setName(resultObj.getString("name"));
 			customer.setEmail(resultObj.getString("email"));
 			customer.setCpf(resultObj.getString("cpf"));
 			customer.setPhone(resultObj.getString("phone"));
 			customer.setAddress(resultObj.getString("address"));
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return customer;
+	}
+
+	public String edit(int id) {
+		System.out.println("Execute edit()");
+		CustomerBean customer = null;
+
+		try {
+			customer = this.selectACustomer(id);
 			context.getSessionMap().put("customerToUpdate", customer);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -211,6 +225,7 @@ public class CustomerBean {
 			pstmt.setString(5, customerToUpdate.getPhone());
 			pstmt.setInt(6, customerToUpdate.getId());
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
