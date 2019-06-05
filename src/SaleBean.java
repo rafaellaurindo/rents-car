@@ -1,4 +1,5 @@
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import java.sql.Connection;
@@ -8,7 +9,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 @ManagedBean(name = "saleBean", eager = true)
 public class SaleBean {
@@ -19,7 +19,7 @@ public class SaleBean {
 	ArrayList<SaleBean> salesList;
 	Connection dbConnection;
 	PreparedStatement pstmt;
-	Map<String, Object> sessionData = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+	ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
 	/**
 	 * @return the id
@@ -75,8 +75,8 @@ public class SaleBean {
 		return this.dbConnection;
 	}
 
-	public ArrayList<SaleBean> salesList() {
-		System.out.println("Execute salesList()");
+	public ArrayList<SaleBean> getSalesList() {
+		System.out.println("Execute getSalesList()");
 		try {
 			salesList = new ArrayList<SaleBean>();
 
@@ -138,7 +138,7 @@ public class SaleBean {
 			sale.setId(resultObj.getInt("id"));
 			sale.setCustomerId(resultObj.getInt("customer_id"));
 			sale.setVehicleId(resultObj.getInt("vehicle_id"));
-			sessionData.put("saleToUpdate", sale);
+			context.getSessionMap().put("saleToUpdate", sale);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
