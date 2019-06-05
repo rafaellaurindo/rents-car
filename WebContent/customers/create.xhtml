@@ -31,7 +31,7 @@
 							<h:panelGroup layout="block" class="form-group">
 								<h:outputLabel clas="form-control" for="customerCpf" value="CPF" />
 								<h:inputText class="form-control" id="customerCpf"
-									value="#{customerBean.name}" requiredMessage="Campo CPF obrigatorio."
+									value="#{customerBean.cpf}" requiredMessage="Campo CPF obrigatorio."
 									required="true">
 								</h:inputText>
 								<h:message for="customerCpf" class="text-danger" />
@@ -52,7 +52,7 @@
 								<h:outputLabel clas="form-control" for="customerPhone"
 									value="Telefone" />
 								<h:inputText class="form-control" id="customerPhone"
-									value="#{customerBean.cpf}"
+									value="#{customerBean.phone}"
 									requiredMessage="Campo Telefone obrigatorio." required="true" />
 								<h:message for="customerPhone" class="text-danger" />
 							</h:panelGroup>
