@@ -1,81 +1,101 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<h:body>
-	<ui:composition template="/WEB-INF/template.xhtml">
-		<ui:define name="pageTitle">
-			<h2>Editar cliente</h2>
-		</ui:define>
-		<ui:define name="pageContent">
-			<h:panelGroup layout="block" class="container">
-				<h:form>
-					<h:panelGroup layout="block" class="row">
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="customerName"
-									value="Nome" />
-								<h:inputText class="form-control" id="customerName"
-									value="#{customerToUpdate.name}" requiredMessage="Campo nome obrigatorio."
-									required="true">
-									<f:validateLength minimum="5" maximum="50" />
-								</h:inputText>
-								<h:message for="customerName" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="customerCpf" value="CPF" />
-								<h:inputText class="form-control" id="customerCpf"
-									value="#{customerToUpdate.cpf}" requiredMessage="Campo CPF obrigatorio."
-									required="true">
-								</h:inputText>
-								<h:message for="customerCpf" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="customerEmail" value="Email" />
-								<h:inputText class="form-control" id="customerEmail"
-									value="#{customerToUpdate.email}" requiredMessage="Campo Email obrigatorio."
-									required="true">
-								</h:inputText>
-								<h:message for="customerEmail" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="customerPhone"
-									value="Telefone" />
-								<h:inputText class="form-control" id="customerPhone"
-									value="#{customerToUpdate.phone}"
-									requiredMessage="Campo Telefone obrigatorio." required="true" />
-								<h:message for="customerPhone" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="customerAddress"
-									value="Endereco" />
-								<h:inputText class="form-control" id="customerAddress"
-									value="#{customerToUpdate.address}"
-									requiredMessage="Campo Endereço  obrigatorio." required="true" />
-								<h:message for="customerAddress" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-					<h:panelGroup layout="block" class="col-md-5">
-						<h:panelGroup layout="block" class="form-group">
-							<h:commandButton value="Salvar"
-								action="#{customerBean.update(customerToUpdate)}"
-								class="btn btn-success" />
-						</h:panelGroup>
-					</h:panelGroup>
-				</h:form>
-			</h:panelGroup>
-		</ui:define>
-	</ui:composition>
-</h:body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <h:body>
+    <ui:composition template="/WEB-INF/template.xhtml">
+      <ui:define name="pageTitle">
+        <h2>Editar cliente</h2>
+      </ui:define>
+      <ui:define name="pageContent">
+        <h:panelGroup layout="block" class="container">
+          <h:form>
+            <h:panelGroup layout="block" class="row">
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="customerName" value="Nome" />
+                  <h:inputText
+                    class="form-control"
+                    id="customerName"
+                    value="#{customerToUpdate.name}"
+                    requiredMessage="Campo nome obrigatorio."
+                    required="true"
+                  >
+                    <f:validateLength minimum="5" maximum="50" />
+                  </h:inputText>
+                  <h:message for="customerName" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="customerCpf" value="CPF" />
+                  <h:inputText
+                    class="form-control"
+                    id="customerCpf"
+                    value="#{customerToUpdate.cpf}"
+                    requiredMessage="Campo CPF obrigatorio."
+                    required="true"
+                  >
+                  </h:inputText>
+                  <h:message for="customerCpf" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="customerEmail" value="Email" />
+                  <h:inputText
+                    class="form-control"
+                    id="customerEmail"
+                    value="#{customerToUpdate.email}"
+                    requiredMessage="Campo Email obrigatorio."
+                    required="true"
+                  >
+                  </h:inputText>
+                  <h:message for="customerEmail" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="customerPhone" value="Telefone" />
+                  <h:inputText
+                    class="form-control"
+                    id="customerPhone"
+                    value="#{customerToUpdate.phone}"
+                    requiredMessage="Campo Telefone obrigatorio."
+                    required="true"
+                  />
+                  <h:message for="customerPhone" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="customerAddress" value="Endereco" />
+                  <h:inputText
+                    class="form-control"
+                    id="customerAddress"
+                    value="#{customerToUpdate.address}"
+                    requiredMessage="Campo Endereço  obrigatorio."
+                    required="true"
+                  />
+                  <h:message for="customerAddress" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="col-md-5">
+              <h:panelGroup layout="block" class="form-group">
+                <h:commandButton
+                  value="Salvar"
+                  action="#{customerBean.update(customerToUpdate)}"
+                  class="btn btn-success"
+                />
+              </h:panelGroup>
+            </h:panelGroup>
+          </h:form>
+        </h:panelGroup>
+      </ui:define>
+    </ui:composition>
+  </h:body>
 </html>

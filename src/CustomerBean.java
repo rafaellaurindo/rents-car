@@ -1,4 +1,5 @@
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import java.sql.Connection;
@@ -8,7 +9,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 @ManagedBean(name = "customerBean", eager = true)
 public class CustomerBean {
@@ -21,52 +21,88 @@ public class CustomerBean {
 	ArrayList<CustomerBean> customersList;
 	Connection dbConnection;
 	PreparedStatement pstmt;
-	Map<String, Object> sessionData = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+	ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
+	/**
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * @return the address
+	 */
 	public String getAddress() {
 		return address;
 	}
 
+	/**
+	 * @return the cpf
+	 */
 	public String getCpf() {
 		return cpf;
 	}
 
+	/**
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return the phone
+	 */
 	public String getPhone() {
 		return phone;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * @param address the address to set
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
+	/**
+	 * @param cpf the cpf to set
+	 */
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
+	/**
+	 * @param email the email to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @param phone the phone to set
+	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
@@ -83,8 +119,8 @@ public class CustomerBean {
 		return this.dbConnection;
 	}
 
-	public ArrayList<CustomerBean> customersList() {
-		System.out.println("Get customersList");
+	public ArrayList<CustomerBean> getCustomersList() {
+		System.out.println("Execute getCustomersList()");
 		try {
 			customersList = new ArrayList<CustomerBean>();
 
@@ -155,7 +191,7 @@ public class CustomerBean {
 			customer.setCpf(resultObj.getString("cpf"));
 			customer.setPhone(resultObj.getString("phone"));
 			customer.setAddress(resultObj.getString("address"));
-			sessionData.put("customerToUpdate", customer);
+			context.getSessionMap().put("customerToUpdate", customer);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -166,8 +202,8 @@ public class CustomerBean {
 	public String update(CustomerBean customerToUpdate) {
 		System.out.println("Execute update()");
 		try {
-			pstmt = this.getDatabase().prepareStatement(
-					"UPDATE customers SET address=?, cpf=?, email=?, name=?, phone=? WHERE id=?");
+			pstmt = this.getDatabase()
+					.prepareStatement("UPDATE customers SET address=?, cpf=?, email=?, name=?, phone=? WHERE id=?");
 			pstmt.setString(1, customerToUpdate.getAddress());
 			pstmt.setString(2, customerToUpdate.getCpf());
 			pstmt.setString(3, customerToUpdate.getEmail());
