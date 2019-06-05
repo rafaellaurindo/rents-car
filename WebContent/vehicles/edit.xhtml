@@ -1,97 +1,119 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<h:body>
-	<ui:composition template="/WEB-INF/template.xhtml">
-		<ui:define name="pageTitle">
-			<h2>Editar Veículo</h2>
-		</ui:define>
-		<ui:define name="pageContent">
-			<h:panelGroup layout="block" class="container">
-				<h:form>
-					<h:panelGroup layout="block" class="row">
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="vehicleYear"
-									value="Fabricação" />
-								<h:inputText class="form-control" id="vehicleYear"
-									value="#{vehicleToUpdate.year}"
-									requiredMessage="Campo fabricação obrigatorio." required="true" />
-								<h:message for="vehicleYear" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <h:body>
+    <ui:composition template="/WEB-INF/template.xhtml">
+      <ui:define name="pageTitle">
+        <h2>Editar Veículo</h2>
+      </ui:define>
+      <ui:define name="pageContent">
+        <h:panelGroup layout="block" class="container">
+          <h:form>
+            <h:panelGroup layout="block" class="row">
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="vehicleYear" value="Fabricação" />
+                  <h:inputText
+                    class="form-control"
+                    id="vehicleYear"
+                    value="#{vehicleToUpdate.year}"
+                    requiredMessage="Campo fabricação obrigatorio."
+                    required="true"
+                  />
+                  <h:message for="vehicleYear" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
 
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="vehicleColor"
-									value="Cor" />
-								<h:inputText class="form-control" id="vehicleColor"
-									value="#{vehicleToUpdate.color}"
-									requiredMessage="Campo cor obrigatorio." required="true" />
-								<h:message for="vehicleColor" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="vehicleColor" value="Cor" />
+                  <h:inputText
+                    class="form-control"
+                    id="vehicleColor"
+                    value="#{vehicleToUpdate.color}"
+                    requiredMessage="Campo cor obrigatorio."
+                    required="true"
+                  />
+                  <h:message for="vehicleColor" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
 
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="vehicleBrand"
-									value="Marca" />
-								<h:inputText class="form-control" id="vehicleBrand"
-									value="#{vehicleToUpdate.brand}"
-									requiredMessage="Campo marca obrigatorio." required="true">
-									<f:validateLength minimum="5" maximum="50" />
-								</h:inputText>
-								<h:message for="vehicleBrand" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="vehicleBrand" value="Marca" />
+                  <h:inputText
+                    class="form-control"
+                    id="vehicleBrand"
+                    value="#{vehicleToUpdate.brand}"
+                    requiredMessage="Campo marca obrigatorio."
+                    required="true"
+                  >
+                    <f:validateLength minimum="5" maximum="50" />
+                  </h:inputText>
+                  <h:message for="vehicleBrand" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
 
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="vehicleModel"
-									value="Modelo" />
-								<h:inputText class="form-control" id="vehicleModel"
-									value="#{vehicleToUpdate.model}"
-									requiredMessage="Campo modelo obrigatorio." required="true">
-								</h:inputText>
-								<h:message for="vehicleModel" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="vehicleModel" value="Modelo" />
+                  <h:inputText
+                    class="form-control"
+                    id="vehicleModel"
+                    value="#{vehicleToUpdate.model}"
+                    requiredMessage="Campo modelo obrigatorio."
+                    required="true"
+                  >
+                  </h:inputText>
+                  <h:message for="vehicleModel" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
 
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="vehiclePlate"
-									value="Placa" />
-								<h:inputText class="form-control" id="vehiclePlate"
-									value="#{vehicleToUpdate.plate}"
-									requiredMessage="Campo placa obrigatorio." required="true">
-								</h:inputText>
-								<h:message for="vehiclePlate" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="vehiclePlate" value="Placa" />
+                  <h:inputText
+                    class="form-control"
+                    id="vehiclePlate"
+                    value="#{vehicleToUpdate.plate}"
+                    requiredMessage="Campo placa obrigatorio."
+                    required="true"
+                  >
+                  </h:inputText>
+                  <h:message for="vehiclePlate" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
 
-						<h:panelGroup layout="block" class="col-md-7">
-							<h:panelGroup layout="block" class="form-group">
-								<h:outputLabel clas="form-control" for="vehiclePrice"
-									value="Preço" />
-								<h:inputText class="form-control" id="vehiclePrice"
-									value="#{vehicleToUpdate.price}"
-									requiredMessage="Campo preço obrigatorio." required="true" />
-								<h:message for="vehiclePrice" class="text-danger" />
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-					<h:panelGroup layout="block" class="col-md-5">
-						<h:panelGroup layout="block" class="form-group">
-							<h:commandButton value="Salvar"
-								action="#{vehicleToUpdate.update(vehicleToUpdate)}"
-								class="btn btn-success" />
-						</h:panelGroup>
-					</h:panelGroup>
-				</h:form>
-			</h:panelGroup>
-		</ui:define>
-	</ui:composition>
-</h:body>
+              <h:panelGroup layout="block" class="col-md-7">
+                <h:panelGroup layout="block" class="form-group">
+                  <h:outputLabel clas="form-control" for="vehiclePrice" value="Preço" />
+                  <h:inputText
+                    class="form-control"
+                    id="vehiclePrice"
+                    value="#{vehicleToUpdate.price}"
+                    requiredMessage="Campo preço obrigatorio."
+                    required="true"
+                  />
+                  <h:message for="vehiclePrice" class="text-danger" />
+                </h:panelGroup>
+              </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="col-md-5">
+              <h:panelGroup layout="block" class="form-group">
+                <h:commandButton
+                  value="Salvar"
+                  action="#{vehicleToUpdate.update(vehicleToUpdate)}"
+                  class="btn btn-success"
+                />
+              </h:panelGroup>
+            </h:panelGroup>
+          </h:form>
+        </h:panelGroup>
+      </ui:define>
+    </ui:composition>
+  </h:body>
 </html>

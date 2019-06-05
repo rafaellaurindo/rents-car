@@ -1,4 +1,5 @@
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import java.sql.Connection;
@@ -8,7 +9,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 @ManagedBean(name = "vehicleBean", eager = true)
 public class VehicleBean {
@@ -23,7 +23,7 @@ public class VehicleBean {
 	ArrayList<VehicleBean> vehiclesList;
 	Connection dbConnection;
 	PreparedStatement pstmt;
-	Map<String, Object> sessionData = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+	ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
 	/**
 	 * @return the id
@@ -135,8 +135,8 @@ public class VehicleBean {
 		return this.dbConnection;
 	}
 
-	public ArrayList<VehicleBean> vehiclesList() {
-		System.out.println("Get vehiclesList");
+	public ArrayList<VehicleBean> getVehiclesList() {
+		System.out.println("Execute getVehiclesList()");
 		try {
 			vehiclesList = new ArrayList<VehicleBean>();
 
@@ -210,7 +210,7 @@ public class VehicleBean {
 			vehicle.setPlate(resultObj.getString("plate"));
 			vehicle.setPrice(resultObj.getFloat("price"));
 			vehicle.setYear(resultObj.getString("year"));
-			sessionData.put("vehicleToUpdate", vehicle);
+			context.getSessionMap().put("vehicleToUpdate", vehicle);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
