@@ -1,13 +1,48 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:body>
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="pageTitle">
 			<h2>Listagem de vendas</h2>
+			<h:link value="+ Nova venda" outcome="/sales/create.xhtml"
+				styleClass="btn btn-sm btn-success" />
+		</ui:define>
+		<ui:define name="pageContent">
+			<h:panelGroup layout="block" class="container">
+				<h:form>
+					<h:dataTable biding="#{table}" value="#{saleBean.salesList()}"
+						var="sale" styleClass="table table-bordered table-hover"
+						headerClass="bg-dark text-white text-center">
+						<h:column>
+							<f:facet name="header">ID</f:facet>
+                #{sale.id}
+              </h:column>
+
+						<h:column>
+							<f:facet name="header">Cliente</f:facet>
+                #{sale.customerId}
+              </h:column>
+
+						<h:column>
+							<f:facet name="header">Veículo</f:facet>
+                #{sale.vehicleId}
+              </h:column>
+
+						<h:column>
+							<f:facet name="header">Ações</f:facet>
+							<h:commandButton value="Editar"
+								action="#{saleBean.edit(sale.id)}" class="btn btn-info"></h:commandButton>
+                &nbsp;
+                <h:commandButton value="Excluir"
+								action="#{saleBean.delete(sale.id)}"
+								class="btn btn-danger btnDelete"></h:commandButton>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</h:panelGroup>
 		</ui:define>
 	</ui:composition>
 </h:body>
