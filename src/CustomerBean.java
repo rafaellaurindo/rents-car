@@ -10,57 +10,67 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Map;
 
-@ManagedBean(name="customerBean", eager=true)
+@ManagedBean(name = "customerBean", eager = true)
 public class CustomerBean {
-	int id;  
+	int id;
 	String address;
-	String cpf;  
-	String email;  
-	String name;  
-	String phone;  
+	String cpf;
+	String email;
+	String name;
+	String phone;
 	ArrayList<CustomerBean> customersList;
 	Connection dbConnection;
 	PreparedStatement pstmt;
 	Map<String, Object> sessionData = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public Connection getDatabase() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -69,64 +79,106 @@ public class CustomerBean {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		return this.dbConnection;
-	}	
-	
 
-	public ArrayList<CustomerBean> customersList(){
+		return this.dbConnection;
+	}
+
+	public ArrayList<CustomerBean> customersList() {
 		System.out.println("Get customersList");
 		try {
 			customersList = new ArrayList<CustomerBean>();
-			
+
 			Statement stmt = this.getDatabase().createStatement();
 			ResultSet resultObj = stmt.executeQuery("SELECT * FROM customers");
-			
-			while (resultObj.next()){
+
+			while (resultObj.next()) {
 				CustomerBean custObj = new CustomerBean();
 				custObj.setId(resultObj.getInt("id"));
-				custObj.setName(resultObj.getString("name"));
-				custObj.setEmail(resultObj.getString("email"));
-				custObj.setCpf(resultObj.getString("cpf"));
-				custObj.setPhone(resultObj.getString("phone"));
 				custObj.setAddress(resultObj.getString("address"));
+				custObj.setCpf(resultObj.getString("cpf"));
+				custObj.setEmail(resultObj.getString("email"));
+				custObj.setName(resultObj.getString("name"));
+				custObj.setPhone(resultObj.getString("phone"));
 				customersList.add(custObj);
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return customersList;
-	}	
-	
-	public String save(CustomerBean newCustomerObj)
-	{
+	}
+
+	public String save(CustomerBean newCustomerObj) {
+		System.out.println("Execute save()");
 		try {
-			pstmt = this.getDatabase().prepareStatement("INSERT INTO customers (name, email, cpf, phone, address) values (?, ?, ?, ?, ?)");
-			pstmt.setString(1, newCustomerObj.getName());
-			pstmt.setString(2, newCustomerObj.getEmail());
-			pstmt.setString(3, newCustomerObj.getCpf());
-			pstmt.setString(4, newCustomerObj.getPhone());
-			pstmt.setString(5, newCustomerObj.getAddress());
+			pstmt = this.getDatabase().prepareStatement(
+					"INSERT INTO customers (address, cpf, email, name, phone) VALUES (?, ?, ?, ?, ?)");
+			pstmt.setString(1, newCustomerObj.getAddress());
+			pstmt.setString(2, newCustomerObj.getCpf());
+			pstmt.setString(3, newCustomerObj.getEmail());
+			pstmt.setString(4, newCustomerObj.getName());
+			pstmt.setString(5, newCustomerObj.getPhone());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return "/customers/index.xhtml?faces-redirect=true";
 	}
-	
-	public String delete(int id)
-	{
+
+	public String delete(int id) {
+		System.out.println("Execute delete()");
 		try {
 			pstmt = this.getDatabase().prepareStatement("DELETE FROM customers WHERE id = " + id);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
+		return "/customers/index.xhtml?faces-redirect=true";
+	}
+
+	public String edit(int id) {
+		System.out.println("Execute edit()");
+		CustomerBean customer = null;
+
+		try {
+			Statement stmt = this.getDatabase().createStatement();
+			ResultSet resultObj = stmt.executeQuery("SELECT * FROM customers WHERE id=" + (id));
+			resultObj.next();
+
+			customer = new CustomerBean();
+			customer.setId(resultObj.getInt("id"));
+			customer.setName(resultObj.getString("name"));
+			customer.setEmail(resultObj.getString("email"));
+			customer.setCpf(resultObj.getString("cpf"));
+			customer.setPhone(resultObj.getString("phone"));
+			customer.setAddress(resultObj.getString("address"));
+			sessionData.put("customerToUpdate", customer);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return "/customers/edit.xhtml?faces-redirect=true";
+	}
+
+	public String update(CustomerBean customerToUpdate) {
+		System.out.println("Execute update()");
+		try {
+			pstmt = this.getDatabase().prepareStatement(
+					"UPDATE customers SET address=?, cpf=?, email=?, name=?, phone=? WHERE id=?");
+			pstmt.setString(1, customerToUpdate.getAddress());
+			pstmt.setString(2, customerToUpdate.getCpf());
+			pstmt.setString(3, customerToUpdate.getEmail());
+			pstmt.setString(4, customerToUpdate.getName());
+			pstmt.setString(5, customerToUpdate.getPhone());
+			pstmt.setInt(6, customerToUpdate.getId());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
 		return "/customers/index.xhtml?faces-redirect=true";
 	}
 }
-

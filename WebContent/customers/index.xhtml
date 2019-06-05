@@ -46,6 +46,9 @@
 				   </h:column>
 						<h:column>
 							<f:facet name="header">Ações</f:facet>
+							<h:commandButton value="Editar"
+								action="#{customerBean.edit(customer.id)}" class="btn btn-info"></h:commandButton>
+							&nbsp;
 							<h:commandButton value="Excluir"
 								action="#{customerBean.delete(customer.id)}"
 								class="btn btn-danger btnDelete"></h:commandButton>
