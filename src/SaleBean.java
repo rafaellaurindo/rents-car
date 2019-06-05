@@ -16,6 +16,9 @@ public class SaleBean {
 	int customerId;
 	int vehicleId;
 
+	VehicleBean vehicle;
+	CustomerBean customer;
+
 	ArrayList<SaleBean> salesList;
 	Connection dbConnection;
 	PreparedStatement pstmt;
@@ -36,10 +39,24 @@ public class SaleBean {
 	}
 
 	/**
+	 * @return the customer
+	 */
+	public CustomerBean getCustomer() {
+		return customer;
+	}
+
+	/**
 	 * @return the vehicleId
 	 */
 	public int getVehicleId() {
 		return vehicleId;
+	}
+
+	/**
+	 * @return the vehicle
+	 */
+	public VehicleBean getVehicle() {
+		return vehicle;
 	}
 
 	/**
@@ -57,10 +74,24 @@ public class SaleBean {
 	}
 
 	/**
+	 * @param customer the customer to set
+	 */
+	public void setCustomer(CustomerBean customer) {
+		this.customer = customer;
+	}
+
+	/**
 	 * @param vehicleId the vehicleId to set
 	 */
 	public void setVehicleId(int vehicleId) {
 		this.vehicleId = vehicleId;
+	}
+
+	/**
+	 * @param vehicle the vehicle to set
+	 */
+	public void setVehicle(VehicleBean vehicle) {
+		this.vehicle = vehicle;
 	}
 
 	public Connection getDatabase() {
@@ -84,13 +115,21 @@ public class SaleBean {
 			ResultSet resultObj = stmt.executeQuery("SELECT * FROM sales");
 
 			while (resultObj.next()) {
+				CustomerBean customer = new CustomerBean();
+				customer = customer.selectACustomer(resultObj.getInt("customer_id"));
+				VehicleBean vehicle = new VehicleBean();
+				vehicle = vehicle.selectAVehicle(resultObj.getInt("vehicle_id"));
+
 				SaleBean sale = new SaleBean();
 				sale.setId(resultObj.getInt("id"));
 				sale.setCustomerId(resultObj.getInt("customer_id"));
 				sale.setVehicleId(resultObj.getInt("vehicle_id"));
+				sale.setCustomer(customer);
+				sale.setVehicle(vehicle);
 				salesList.add(sale);
 			}
 
+			stmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -105,6 +144,8 @@ public class SaleBean {
 			pstmt.setInt(1, newSaleObj.getCustomerId());
 			pstmt.setInt(2, newSaleObj.getVehicleId());
 			pstmt.executeUpdate();
+
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -117,6 +158,7 @@ public class SaleBean {
 		try {
 			pstmt = this.getDatabase().prepareStatement("DELETE FROM sales WHERE id = " + id);
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -138,6 +180,7 @@ public class SaleBean {
 			sale.setId(resultObj.getInt("id"));
 			sale.setCustomerId(resultObj.getInt("customer_id"));
 			sale.setVehicleId(resultObj.getInt("vehicle_id"));
+			stmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -167,6 +210,7 @@ public class SaleBean {
 			pstmt.setInt(2, saleToUpdate.getVehicleId());
 			pstmt.setInt(3, saleToUpdate.getId());
 			pstmt.executeUpdate();
+			pstmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}

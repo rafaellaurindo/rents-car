@@ -27,13 +27,43 @@
               </h:column>
 
               <h:column>
-                <f:facet name="header">Cliente</f:facet>
-                #{sale.customerId}
+                <f:facet name="header">Nome</f:facet>
+                #{sale.customer.name}
               </h:column>
 
               <h:column>
-                <f:facet name="header">Veículo</f:facet>
-                #{sale.vehicleId}
+                <f:facet name="header">Contato</f:facet>
+                #{sale.customer.phone}
+              </h:column>
+
+              <h:column>
+                <f:facet name="header">Ano</f:facet>
+                #{sale.vehicle.year}
+              </h:column>
+
+              <h:column>
+                <f:facet name="header">Cor</f:facet>
+                #{sale.vehicle.color}
+              </h:column>
+
+              <h:column>
+                <f:facet name="header">Marca</f:facet>
+                #{sale.vehicle.brand}
+              </h:column>
+
+              <h:column>
+                <f:facet name="header">Modelo</f:facet>
+                #{sale.vehicle.model}
+              </h:column>
+
+              <h:column>
+                <f:facet name="header">Placa</f:facet>
+                #{sale.vehicle.plate}
+              </h:column>
+
+              <h:column>
+                <f:facet name="header">Preço</f:facet>
+                R$ #{sale.vehicle.price}
               </h:column>
 
               <h:column>
